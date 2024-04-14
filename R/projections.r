@@ -167,7 +167,12 @@ tidy_projections <- function(x) {
   }
 
   # ranks by rank type
-  player$draftRanksByRankType <- purrr::map(player$draftRanksByRankType, tidy_projection_draft_ranks)
+  if ("draftRanksByRankType" %in% names(player)) {
+    player$draftRanksByRankType <- purrr::map(player$draftRanksByRankType, tidy_projection_draft_ranks)
+  }
+  else {
+    player$draftRanksByRankType <- NA
+  }
 
   # prepare data frame
   x <- player
