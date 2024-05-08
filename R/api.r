@@ -7,7 +7,8 @@
 ffespn_api <- function(path, query = NULL, headers = NULL) {
   # url
   #baseurl <- "http://games.espn.com/"
-  baseurl <- "http://fantasy.espn.com/"
+  #baseurl <- "http://fantasy.espn.com/"
+  baseurl <- "https://lm-api-reads.fantasy.espn.com/"
   path <- paste0("apis/v3/games/ffl/", path)
   url <- httr::modify_url(baseurl, path = path, query = query)
 
