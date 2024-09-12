@@ -56,13 +56,13 @@ stat_id_to_name <- function(id) {
     id == 40 ~ "rush_yds2", # TODO: figure out what the difference is between 40 and 24
 
     # receptions
-    id == 41 ~ "rec_cmp",
+    id == 41 ~ "rec_cmp2",  # TODO: figure out what the difference is between 53 and 41
     id == 42 ~ "rec_yds",
     id == 43 ~ "rec_tds",
     id == 44 ~ "rec_2pt",
     id == 45 ~ "rec_td_40_plus_yds",
     id == 46 ~ "rec_td_50_plus_yds",
-    id == 53 ~ "rec_cmp_v2", # TODO: figure out what the difference is between 53 and 41
+    id == 53 ~ "rec_cmp",
     id == 56 ~ "rec_yds_100_199",
     id == 57 ~ "rec_yds_200_plus",
     id == 58 ~ "rec_tgt",
