@@ -40,6 +40,8 @@ stat_id_to_name <- function(id) {
     id == 18 ~ "pass_yds_400_plus",
     id == 19 ~ "pass_2pt",
     id == 20 ~ "pass_int",
+    id == 21 ~ "pass_cmp_pct",
+    id == 22 ~ "pass_yds2", # TODO: figure out what the difference is between 22 and 3
 
     # rushing
     id == 23 ~ "rush_att",
@@ -50,23 +52,36 @@ stat_id_to_name <- function(id) {
     id == 36 ~ "rush_td_50_plus_yds",
     id == 37 ~ "rush_yds_100_199",
     id == 38 ~ "rush_yds_200_plus",
+    id == 39 ~ "rush_yds_per_att",
+    id == 40 ~ "rush_yds2", # TODO: figure out what the difference is between 40 and 24
 
     # receptions
+    id == 41 ~ "rec_cmp2",  # TODO: figure out what the difference is between 53 and 41
     id == 42 ~ "rec_yds",
     id == 43 ~ "rec_tds",
     id == 44 ~ "rec_2pt",
+    id == 45 ~ "rec_td_40_plus_yds",
+    id == 46 ~ "rec_td_50_plus_yds",
     id == 53 ~ "rec_cmp",
+    id == 56 ~ "rec_yds_100_199",
+    id == 57 ~ "rec_yds_200_plus",
     id == 58 ~ "rec_tgt",
+    id == 59 ~ "rec_yac",
+    id == 60 ~ "rec_ypc",
+    id == 61 ~ "rec_yds2", # TODO: figure out what the difference is between 61 and 42
 
     # misc
+    id == 62 ~ "2pt",
+    id == 63 ~ "fumbles_ret_tds",
     id == 64 ~ "sacked",
     id == 68 ~ "fumbles",
     id == 72 ~ "fumbles_lost",
+    id == 73 ~ "turnovers",
 
     # kicking
-    id == 74 ~ "fg_cmp_50",
-    id == 75 ~ "fg_att_50",
-    id == 76 ~ "fg_miss_50",
+    id == 74 ~ "fg_cmp_50",  # TODO: does this include 60+ ?
+    id == 75 ~ "fg_att_50", # TODO: does this include 60+ ?
+    id == 76 ~ "fg_miss_50", # TODO: does this include 60+ ?
     id == 77 ~ "fg_cmp_40_49",
     id == 78 ~ "fg_att_40_49",
     id == 79 ~ "fg_miss_40_49",
@@ -92,11 +107,11 @@ stat_id_to_name <- function(id) {
     id == 97 ~ "def_blocks",
     id == 98 ~ "def_safeties",
     id == 99 ~ "def_sacks",
-    id == 100 ~ "def_stuffs",
+    id == 100 ~ "def_stuffs", # This appears to be defensiveSacks * 2 ?
     id == 101 ~ "special_kick_ret_tds",
     id == 102 ~ "special_punt_ret_tds",
-    id == 103 ~ "def_fumble_ret_tds",
-    id == 104 ~ "def_int_ret_tds",
+    id == 103 ~ "def_int_ret_tds",
+    id == 104 ~ "def_fumbles_ret_tds",
     id == 105 ~ "def_tds",
     id == 106 ~ "def_fumbles_forced",
     id == 107 ~ "def_tackles_assisted", # tackles assisted
@@ -105,13 +120,23 @@ stat_id_to_name <- function(id) {
     id == 113 ~ "def_passes_defended", # passes defended
     id == 114 ~ "special_kick_ret_yds",
     id == 115 ~ "special_punt_ret_yds",
+    id == 118 ~ "special_punt_ret",
     id == 120 ~ "def_pts_against",
-    id == 121 ~ "def_pts_against_18_20",
-    id == 122 ~ "def_pts_against_21_27",
+    id == 121 ~ "def_pts_against_18_21",
+    id == 122 ~ "def_pts_against_22_27",
     id == 123 ~ "def_pts_against_28_34",
     id == 124 ~ "def_pts_against_35_45",
     id == 125 ~ "def_pts_against_46_plus",
     id == 127 ~ "def_yds_against",
+    id == 128 ~ "def_yds_against_minus_99",
+    id == 129 ~ "def_yds_against_100_199",
+    id == 130 ~ "def_yds_against_200_299",
+    id == 131 ~ "def_yds_against_300_349",
+    id == 132 ~ "def_yds_against_350_399",
+    id == 133 ~ "def_yds_against_400_449",
+    id == 134 ~ "def_yds_against_450_499",
+    id == 135 ~ "def_yds_against_500_549",
+    id == 136 ~ "def_yds_against_550_plus",
 
     # punts
     id == 138 ~ "punts",
@@ -131,16 +156,39 @@ stat_id_to_name <- function(id) {
     id == 151 ~ "punts_38_40",
     id == 152 ~ "punts_36_38",
     id == 153 ~ "punts_34_36",
-    id == 154 ~ "punts_32_34",
+    id == 154 ~ "punts_minus_34",
 
     # misc
     id == 155 ~ "team_win",
     id == 156 ~ "team_loss",
+    id == 157 ~ "team_tie",
     id == 158 ~ "team_points_scored",
     id == 159 ~ "team_points_scored2",
     id == 160 ~ "team_margin_of_victory",
+    id == 161 ~ "team_margin_win_25_plus",
+    id == 162 ~ "team_margin_win_20_24",
+    id == 163 ~ "team_margin_win_15_19",
+    id == 164 ~ "team_margin_win_10_14",
+    id == 165 ~ "team_margin_win_5_9",
+    id == 166 ~ "team_margin_win_1_4",
+    id == 167 ~ "team_margin_loss_1_4",
+    id == 168 ~ "team_margin_loss_5_9",
+    id == 169 ~ "team_margin_loss_10_14",
+    id == 170 ~ "team_margin_loss_15_19",
+    id == 171 ~ "team_margin_loss_20_24",
+    id == 172 ~ "team_margin_loss_25_plus",
     id == 173 ~ "team_margin_of_victory2",
-    id == 174 ~ "team_win2",
+    id == 174 ~ "team_win_pct",
+
+    id == 187 ~ "def_pts_against2", # TODO: figure out what the difference is between 187 and 120
+
+    id == 201 ~ "fg_cmp_60",
+    id == 202 ~ "fg_att_60",
+    id == 203 ~ "fg_miss_60",
+
+    id == 205 ~ "def_ret_2pt",
+    id == 206 ~ "team_ret_2pt2", # TODO: figure out what the difference is between 206 and 205
+
     id == 210 ~ "games",
     TRUE ~ paste0("stat_", id)
   )
@@ -167,7 +215,7 @@ pos_id_to_name <- function(x) {
 
 slot_names <- c("QB", "TQB", "RB", "RB/WR", "WR", "WR/TE", "TE", "OP",
                  "DT", "DE", "LB", "DL", "CB", "S", "DB", "DP", "DST",
-                 "K", "P", "HC", "FLEX", "EDR")
+                 "K", "P", "HC", "BE", "IR", "FLEX", "EDR", "Rookie")
 
 slot_name_to_id <- function(x) {
   # QB: 0, RB: 2, WR: 4, TE: 6, DST: 16, K: 17
@@ -192,8 +240,12 @@ slot_name_to_id <- function(x) {
     x == "K" ~ 17L,
     x == "P" ~ 18L,
     x == "HC" ~ 19L, # head coach
+    x == "BE" ~ 20L,
+    x == "IR" ~ 21L,
+    x == "" ~ 22L,
     x == "FLEX" ~ 23L,
-    x == "EDR" ~ 24L,
+    x == "EDR" ~ 24L, # edge rusher
+    x == "Rookie" ~ 25L,
     TRUE ~ NA_integer_
   )
 }
@@ -227,7 +279,10 @@ slot_id_to_name <- function(x) {
     x == 16 ~ "DST",
     x == 17 ~ "K",
     x == 18 ~ "P",
-    x == 19 ~ "HC",
+    x == 19 ~ "HC", # head coach
+    x == 20 ~ "BE",
+    x == 21 ~ "IR",
+    x == 22 ~ "",
     x == 23 ~ "FLEX",
     x == 24 ~ "EDR", # edge rusher,
     x == 25 ~ "Rookie",
