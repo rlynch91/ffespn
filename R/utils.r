@@ -259,7 +259,7 @@ stat_id_to_name <- function(id) {
     id == 208 ~ "def_safety_1pt",
     id == 209 ~ "team_safety_1pt",
 
-    id == 210 ~ "games_played",
+    id == 210 ~ "games",
 
     id == 211 ~ "pass_1st_down",
     id == 212 ~ "rush_1st_down",
