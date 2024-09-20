@@ -10,9 +10,10 @@
 #' @param pos character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...
 #' @param scoring scoring type
 #' @param league_id custom league_id (optional)
+#' @param max_scoring_period custom max_scoring_period (optional)
 #'
 #' @export
-ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr", "non_ppr"), league_id = NULL) {
+ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr", "non_ppr"), league_id = NULL, max_scoring_period=2) {
   # validate input
   pos <- match.arg(pos)
   scoring <- match.arg(scoring)
@@ -51,13 +52,14 @@ ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr"
   # required different filters for season vs weekly projections
   if (week == 0) {
     players$filterStatsForExternalIds = list(value = season)
-    players$filterStatsForTopScoringPeriodIds = list(value = jsonlite::unbox(2), additionalValue = list( jsonlite::unbox(paste0("10", season)))) # Can get stale date w/o this
+    players$filterStatsForTopScoringPeriodIds = list(value = jsonlite::unbox(max_scoring_period), additionalValue = list( jsonlite::unbox(paste0("00", season)), jsonlite::unbox(paste0("10", season)))) # Can get stale date w/o this
   } else {
     players$filterStatsForExternalIds = list(value = sprintf("%s%s", season, week))
   }
 
   # combine
   x_fantasy_filter <- list("players" = players)
+  print(jsonlite::toJSON(x_fantasy_filter))
   headers <- httr::add_headers(.headers = c(
     "X-Fantasy-Filter" = jsonlite::toJSON(x_fantasy_filter),
     "X-Fantasy-Source" = "kona",
