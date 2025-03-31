@@ -150,18 +150,23 @@ tidy_projections <- function(x) {
   player <- tibble::as_tibble(player)
 
   # parse player ownership
-  ownership <- purrr::map(player$ownership, function(x) {
-    x <- replace_null(x, NA_real_)
-    if (is.list(x)) {
-      x$date <- list_to_dt(x$date)
-      return(x)
-    } else {
-      return(list())
-    }
-  })
+  if ("ownership" %in% names(player)) {
+    ownership <- purrr::map(player$ownership, function(x) {
+      x <- replace_null(x, NA_real_)
+      if (is.list(x)) {
+        x$date <- list_to_dt(x$date)
+        return(x)
+      } else {
+        return(list())
+      }
+    })
 
-  ownership <- purrr::map(ownership, as_tibble_snake)
-  player$ownership <- ownership
+    ownership <- purrr::map(ownership, as_tibble_snake)
+    player$ownership <- ownership
+  }
+  else {
+    player$ownership <- NA_real_
+  }
 
   # player rankings
   if ("rankings" %in% names(player)) {
